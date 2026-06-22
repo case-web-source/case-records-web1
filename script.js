@@ -7,7 +7,7 @@ document.getElementById("uploadForm");
 
 // YOUR APPS SCRIPT URL
 const SCRIPT_URL =
-"https://script.google.com/macros/s/AKfycbwpymA3rRiDsP_SWaE4WwC6sgm_UV6_tps6dMcHkGvl061Gs4N85u-9uweOEUrCyY5Gkg/exec";
+"https://script.google.com/macros/s/AKfycbwlOWDNrACeFRBYJTalGx6uhwHd2_Zxf-2Vzm9jFxbWEc3QhKU8_zXHSWeVlIQyZcdZ7Q/exec";
 
 form.addEventListener(
 "submit",
