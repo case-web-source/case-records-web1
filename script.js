@@ -1,11 +1,5 @@
-// ======================================
-// FACULTY DOCUMENT PORTAL
-// ======================================
+const form = document.getElementById("uploadForm");
 
-const form =
-document.getElementById("uploadForm");
-
-// YOUR APPS SCRIPT URL
 const SCRIPT_URL =
 "https://script.google.com/macros/s/AKfycbwlOWDNrACeFRBYJTalGx6uhwHd2_Zxf-2Vzm9jFxbWEc3QhKU8_zXHSWeVlIQyZcdZ7Q/exec";
 
@@ -90,30 +84,28 @@ console.log(payload);
 status.innerText =
 "Uploading...";
 
-const response =
+/*
+NO HEADERS
+NO CONTENT-TYPE
+
+This avoids Apps Script
+CORS preflight issues.
+*/
+
 await fetch(
 SCRIPT_URL,
 {
 method:"POST",
-headers:{
-"Content-Type":
-"application/json"
-},
+mode:"no-cors",
 body:
 JSON.stringify(payload)
 }
 );
 
-const text =
-await response.text();
-
-console.log(
-"Server:",
-text
-);
-
 status.innerText =
-"Request sent.";
+"Upload sent. Check Drive and Sheets.";
+
+form.reset();
 
 }
 
