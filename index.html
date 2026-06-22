@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <!-- Makes website mobile-friendly -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Faculty Document Portal</title>
+
+    <!-- CSS File -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!--
+        Background overlay.
+        Helps darken/lighten image if needed.
+    -->
+    <div class="overlay"></div>
+
+    <!-- Main Form Container -->
+    <div class="container">
+
+        <!-- =====================
+             LOGO SECTION
+        ====================== -->
+
+        <div class="logo-section">
+
+            <!-- Replace later -->
+            <img
+                src="assets/logo.png.jpg"
+                alt="School Logo"
+                class="logo">
+
+            <h1>Faculty Document Portal</h1>
+
+            <p>
+                Academic Submission System
+            </p>
+
+        </div>
+
+        <!-- =====================
+             FORM START
+        ====================== -->
+
+        <form id="uploadForm">
+
+            <!-- Faculty Name -->
+
+            <div class="input-group">
+
+                <label>
+                    Faculty Name
+                </label>
+
+                <input
+                    type="text"
+                    id="facultyName"
+                    placeholder="Family Name, Given Name, M.I."
+                    required>
+
+            </div>
+
+            <!-- Semester -->
+
+            <div class="input-group">
+
+                <label>
+                    Semester
+                </label>
+
+                <select
+                    id="semester"
+                    required>
+
+                    <option value="">
+                        Select Semester
+                    </option>
+
+                    <option>
+                        1st Semester AY 2026-2027
+                    </option>
+
+                    <option>
+                        2nd Semester AY 2026-2027
+                    </option>
+
+                    <option>
+                        Midyear AY 2026-2027
+                    </option>
+
+                    <option>
+                        1st Semester AY 2027-2028
+                    </option>
+
+                    <option>
+                        2nd Semester AY 2027-2028
+                    </option>
+
+                    <option>
+                        Midyear AY 2027-2028
+                    </option>
+
+                </select>
+
+            </div>
+
+            <!-- Department -->
+
+            <div class="input-group">
+
+                <label>
+                    Department / Program
+                </label>
+
+                <select
+                    id="department"
+                    required>
+
+                    <option value="">
+                        Select Department
+                    </option>
+
+                    <option>MAPS</option>
+                    <option>Psychology</option>
+                    <option>Media and Communication</option>
+                    <option>Christian Education</option>
+                    <option>Human Kinetics</option>
+                    <option>Languages</option>
+                    <option>Education</option>
+                    <option>Theology</option>
+                    <option>General Education</option>
+
+                </select>
+
+            </div>
+
+            <!-- Document Type -->
+
+            <div class="input-group">
+
+                <label>
+                    Document Type
+                </label>
+
+                <select
+                    id="documentType"
+                    required>
+
+                    <option value="">
+                        Select Document Type
+                    </option>
+
+                    <option>
+                        Midterm Grade
+                    </option>
+
+                    <option>
+                        Final Grade
+                    </option>
+
+                    <option>
+                        Online Attendance
+                    </option>
+
+                    <option>
+                        Online Picture (PDF)
+                    </option>
+
+                </select>
+
+            </div>
+
+            <!-- File Upload -->
+
+            <div class="input-group">
+
+                <label>
+                    Upload File
+                </label>
+
+                <small>
+                    Allowed:
+                    PDF, XLSX, XLS, DOCX
+                    (Max 10MB)
+                </small>
+
+                <input
+                    type="file"
+                    id="file"
+                    accept=".pdf,.xlsx,.xls,.doc,.docx"
+                    required>
+
+            </div>
+
+            <!-- Submit Button -->
+
+            <button
+                type="submit">
+
+                Submit Document
+
+            </button>
+
+            <!-- Upload Status -->
+
+            <p id="status"></p>
+
+        </form>
+
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
