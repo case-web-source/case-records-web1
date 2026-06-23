@@ -149,28 +149,52 @@
             </div>
 
             <!-- ==========================
-                 FILE UPLOAD
-            =========================== -->
+         <!-- FILE DROP ZONE -->
 
-            <div class="input-group">
+<div class="input-group">
 
-                <label>
-                    Add File
-                </label>
+    <label>
+        Upload Documents
+    </label>
 
-                <small>
-                    PDF, XLSX, XLS, DOCX
-                    (Maximum 10MB per file)
-                </small>
+    <small>
+        Drag and drop files here or click the box.
+        PDF, XLSX, XLS, DOCX
+        (Maximum 10MB per file)
+    </small>
 
-                <!-- Add files one by one -->
+    <div id="dropZone">
 
-                <input
-                    type="file"
-                    id="file"
-                    accept=".pdf,.xlsx,.xls,.doc,.docx">
+        <p>📁 Drag Files Here</p>
 
-            </div>
+        <p>or Click to Select Files</p>
+
+        <input
+            type="file"
+            id="fileInput"
+            multiple
+            accept=".pdf,.xlsx,.xls,.doc,.docx"
+            hidden>
+
+    </div>
+
+</div>
+
+<!-- FILE LIST -->
+
+<div class="input-group">
+
+    <label>
+        Files Ready For Submission
+    </label>
+
+    <div id="fileList">
+
+        No files selected.
+
+    </div>
+
+</div>
 
             <!-- ==========================
                  FILE QUEUE
