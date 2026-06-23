@@ -1,38 +1,115 @@
-// =====================================
-// FILE QUEUE
-// =====================================
+const form =
+document.getElementById("uploadForm");
 
-let selectedFiles = [];
+const dropZone =
+document.getElementById("dropZone");
 
 const fileInput =
-document.getElementById("file");
+document.getElementById("fileInput");
 
 const fileList =
 document.getElementById("fileList");
+
+const status =
+document.getElementById("status");
+
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbwlOWDNrACeFRBYJTalGx6uhwHd2_Zxf-2Vzm9jFxbWEc3QhKU8_zXHSWeVlIQyZcdZ7Q/exec";
+
+let selectedFiles = [];
+
+/* ==========================
+   OPEN FILE PICKER
+========================== */
+
+dropZone.addEventListener(
+"click",
+function(){
+
+fileInput.click();
+
+}
+);
+
+/* ==========================
+   FILE PICKER
+========================== */
 
 fileInput.addEventListener(
 "change",
 function(){
 
-const newFiles =
-Array.from(fileInput.files);
-
-selectedFiles.push(
-...newFiles
-);
-
-updateFileList();
-
-fileInput.value = "";
+addFiles(fileInput.files);
 
 }
 );
 
-// =====================================
-// UPDATE FILE LIST BOX
-// =====================================
+/* ==========================
+   DRAG EVENTS
+========================== */
 
-function updateFileList(){
+dropZone.addEventListener(
+"dragover",
+function(e){
+
+e.preventDefault();
+
+dropZone.classList.add(
+"dragover"
+);
+
+}
+);
+
+dropZone.addEventListener(
+"dragleave",
+function(){
+
+dropZone.classList.remove(
+"dragover"
+);
+
+}
+);
+
+dropZone.addEventListener(
+"drop",
+function(e){
+
+e.preventDefault();
+
+dropZone.classList.remove(
+"dragover"
+);
+
+addFiles(
+e.dataTransfer.files
+);
+
+}
+);
+
+/* ==========================
+   ADD FILES
+========================== */
+
+function addFiles(files){
+
+for(const file of files){
+
+selectedFiles.push(file);
+
+}
+
+renderFiles();
+
+}
+
+/* ==========================
+   RENDER FILES
+========================== */
+
+function renderFiles(){
 
 if(selectedFiles.length === 0){
 
@@ -48,27 +125,54 @@ fileList.innerHTML = "";
 selectedFiles.forEach(
 (file,index)=>{
 
-fileList.innerHTML +=
+const row =
+document.createElement("div");
+
+row.className =
+"file-item";
+
+row.innerHTML =
 `
-<div class="file-item">
-${index + 1}. ${file.name}
-</div>
+<span>${file.name}</span>
+
+<button
+type="button"
+class="remove-btn"
+onclick="removeFile(${index})">
+
+Remove
+
+</button>
 `;
+
+fileList.appendChild(row);
 
 }
 );
 
 }
 
-// =====================================
-// FORM
-// =====================================
+/* ==========================
+   REMOVE FILE
+========================== */
 
-const form =
-document.getElementById("uploadForm");
+function removeFile(index){
 
-const SCRIPT_URL =
-"https://script.google.com/macros/s/AKfycbwlOWDNrACeFRBYJTalGx6uhwHd2_Zxf-2Vzm9jFxbWEc3QhKU8_zXHSWeVlIQyZcdZ7Q/exec";
+selectedFiles.splice(
+index,
+1
+);
+
+renderFiles();
+
+}
+
+window.removeFile =
+removeFile;
+
+/* ==========================
+   SUBMIT
+========================== */
 
 form.addEventListener(
 "submit",
@@ -76,58 +180,26 @@ async function(event){
 
 event.preventDefault();
 
-const status =
-document.getElementById("status");
-
 if(selectedFiles.length === 0){
 
 alert(
-"Please add at least one file."
+"Please add files first."
 );
 
 return;
 
 }
 
-// =====================================
-// CONFIRM SUBMISSION
-// =====================================
-
-const confirmUpload =
-confirm(
-"Are you sure you want to submit these document(s)?"
-);
-
-if(!confirmUpload){
+if(!confirm(
+"Submit all files?"
+)){
 
 return;
 
 }
-
-// =====================================
-// DUPLICATE WARNING
-// =====================================
-
-const duplicateWarning =
-confirm(
-"Submitting the same document again may create duplicate records.\n\nContinue?"
-);
-
-if(!duplicateWarning){
-
-return;
-
-}
-
-status.innerText =
-"Preparing upload...";
 
 const maxSize =
 10 * 1024 * 1024;
-
-// =====================================
-// UPLOAD FILES
-// =====================================
 
 for(let i = 0; i < selectedFiles.length; i++){
 
@@ -138,7 +210,7 @@ if(file.size > maxSize){
 
 alert(
 file.name +
-" exceeds the 10MB limit."
+" exceeds 10MB."
 );
 
 continue;
@@ -147,19 +219,17 @@ continue;
 
 status.innerText =
 "Uploading " +
-(i + 1) +
+(i+1) +
 " of " +
 selectedFiles.length;
 
 const reader =
 new FileReader();
 
-await new Promise((resolve)=>{
+await new Promise(resolve=>{
 
 reader.onload =
 async function(){
-
-try{
 
 const payload = {
 
@@ -194,6 +264,8 @@ reader.result.split(",")[1]
 
 };
 
+try{
+
 await fetch(
 SCRIPT_URL,
 {
@@ -207,7 +279,7 @@ JSON.stringify(payload)
 }
 catch(error){
 
-console.error(error);
+console.log(error);
 
 }
 
@@ -221,21 +293,17 @@ reader.readAsDataURL(file);
 
 }
 
-// =====================================
-// SUCCESS
-// =====================================
-
 status.innerText =
-"Submission completed successfully.";
+"Submission completed.";
 
 alert(
 "Documents submitted successfully."
 );
 
-form.reset();
-
 selectedFiles = [];
 
-updateFileList();
+renderFiles();
+
+form.reset();
 
 });
