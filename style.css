@@ -1,40 +1,45 @@
 /* ===================================
    THEME VARIABLES
-
-   CHANGE COLORS HERE ONLY
+   CHANGE COLORS HERE
 =================================== */
 
-:root {
+:root{
 
-    --primary-color: #123456;
+    --primary-color:#123456;
 
-    --secondary-color: #abcdef;
+    --secondary-color:#abcdef;
 
-    --card-color: rgba(255,255,255,0.92);
+    --card-color:rgba(255,255,255,0.92);
 
-    --text-color: #222;
+    --text-color:#222;
 
-    --button-color: #123456;
+    --button-color:#123456;
 
-    --button-hover: #0f2740;
+    --button-hover:#0f2740;
 
 }
 
-/* Reset */
+/* ===================================
+   RESET
+=================================== */
 
 *{
+
     margin:0;
     padding:0;
     box-sizing:border-box;
+
 }
 
-/* Body */
+/* ===================================
+   BODY
+=================================== */
 
 body{
 
     min-height:100vh;
 
-    font-family:Arial, sans-serif;
+    font-family:Arial,sans-serif;
 
     background-image:
     url("assets/background.jpg");
@@ -45,14 +50,17 @@ body{
 
     display:flex;
 
-    justify-content:center;
-
     align-items:center;
 
-    padding:30px;
+    padding:40px;
+
+    overflow-x:hidden;
+
 }
 
-/* Overlay */
+/* ===================================
+   BACKGROUND OVERLAY
+=================================== */
 
 .overlay{
 
@@ -60,12 +68,21 @@ body{
 
     inset:0;
 
-    background:rgba(0,0,0,0.40);
+    background:rgba(0,0,0,0.35);
 
     z-index:-1;
+
 }
 
-/* Main Card */
+/* ===================================
+   MAIN FORM CARD
+
+   Desktop:
+   Left Side
+
+   Mobile:
+   Center
+=================================== */
 
 .container{
 
@@ -82,16 +99,22 @@ body{
     backdrop-filter:blur(5px);
 
     box-shadow:
-    0 10px 30px rgba(0,0,0,0.20);
+    0 10px 30px rgba(0,0,0,0.25);
+
+    margin-left:5%;
+
 }
 
-/* Logo */
+/* ===================================
+   LOGO SECTION
+=================================== */
 
 .logo-section{
 
     text-align:center;
 
     margin-bottom:25px;
+
 }
 
 .logo{
@@ -105,18 +128,31 @@ body{
     border-radius:50%;
 
     margin-bottom:15px;
+
 }
 
 .logo-section h1{
 
     margin-bottom:8px;
+
+    font-size:28px;
+
 }
 
-/* Inputs */
+.logo-section p{
+
+    opacity:.75;
+
+}
+
+/* ===================================
+   INPUTS
+=================================== */
 
 .input-group{
 
     margin-bottom:18px;
+
 }
 
 .input-group label{
@@ -126,6 +162,7 @@ body{
     margin-bottom:8px;
 
     font-weight:600;
+
 }
 
 .input-group small{
@@ -133,6 +170,9 @@ body{
     display:block;
 
     margin-bottom:8px;
+
+    opacity:.7;
+
 }
 
 input,
@@ -145,9 +185,14 @@ select{
     border-radius:10px;
 
     border:1px solid #ccc;
+
+    font-size:15px;
+
 }
 
-/* Button */
+/* ===================================
+   BUTTON
+=================================== */
 
 button{
 
@@ -166,18 +211,96 @@ button{
     background:var(--button-color);
 
     font-size:16px;
+
+    transition:.3s;
+
 }
 
 button:hover{
 
     background:var(--button-hover);
+
 }
 
-/* Status */
+/* ===================================
+   STATUS
+=================================== */
 
 #status{
 
     margin-top:15px;
 
     text-align:center;
+
+    font-weight:bold;
+
+}
+
+/* ===================================
+   BIG DECORATIVE LOGO
+
+   Uses same logo file
+
+   Desktop only
+=================================== */
+
+body::after{
+
+    content:"";
+
+    position:fixed;
+
+    right:6%;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:420px;
+
+    height:420px;
+
+    background-image:
+    url("assets/logo.png.jpg");
+
+    background-size:contain;
+
+    background-repeat:no-repeat;
+
+    background-position:center;
+
+    opacity:.25;
+
+    pointer-events:none;
+
+}
+
+/* ===================================
+   MOBILE VERSION
+
+   Keeps everything centered
+=================================== */
+
+@media(max-width:900px){
+
+    body{
+
+        justify-content:center;
+
+        padding:20px;
+
+    }
+
+    .container{
+
+        margin:auto;
+
+    }
+
+    body::after{
+
+        display:none;
+
+    }
+
 }
