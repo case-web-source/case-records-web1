@@ -250,9 +250,9 @@ body::after{
 
     position:fixed;
 
-    right:6%;
+    right:3%;
 
-    top:50%;
+    top:70%;
 
     transform:translateY(-50%);
 
@@ -261,7 +261,7 @@ body::after{
     height:420px;
 
     background-image:
-    url("");
+    url("assets/logo.jpg");
 
     background-size:contain;
 
