@@ -127,12 +127,7 @@ body{
 
 .logo-section p{
 
-div {
-  background-color: rgb(0, 0, 0);
-  color: white;
-  opacity:.100;
-}
-    
+    opacity:.75;
 
 }
 
