@@ -1,3 +1,69 @@
+// =====================================
+// FILE QUEUE
+// =====================================
+
+let selectedFiles = [];
+
+const fileInput =
+document.getElementById("file");
+
+const fileList =
+document.getElementById("fileList");
+
+fileInput.addEventListener(
+"change",
+function(){
+
+const newFiles =
+Array.from(fileInput.files);
+
+selectedFiles.push(
+...newFiles
+);
+
+updateFileList();
+
+fileInput.value = "";
+
+}
+);
+
+// =====================================
+// UPDATE FILE LIST BOX
+// =====================================
+
+function updateFileList(){
+
+if(selectedFiles.length === 0){
+
+fileList.innerHTML =
+"No files selected.";
+
+return;
+
+}
+
+fileList.innerHTML = "";
+
+selectedFiles.forEach(
+(file,index)=>{
+
+fileList.innerHTML +=
+`
+<div class="file-item">
+${index + 1}. ${file.name}
+</div>
+`;
+
+}
+);
+
+}
+
+// =====================================
+// FORM
+// =====================================
+
 const form =
 document.getElementById("uploadForm");
 
@@ -13,23 +79,19 @@ event.preventDefault();
 const status =
 document.getElementById("status");
 
-const files =
-document.getElementById("file")
-.files;
-
-if(files.length === 0){
+if(selectedFiles.length === 0){
 
 alert(
-"Please select at least one file."
+"Please add at least one file."
 );
 
 return;
 
 }
 
-/* ==========================
-   CONFIRM SUBMISSION
-========================== */
+// =====================================
+// CONFIRM SUBMISSION
+// =====================================
 
 const confirmUpload =
 confirm(
@@ -42,9 +104,9 @@ return;
 
 }
 
-/* ==========================
-   DUPLICATE WARNING
-========================== */
+// =====================================
+// DUPLICATE WARNING
+// =====================================
 
 const duplicateWarning =
 confirm(
@@ -63,14 +125,14 @@ status.innerText =
 const maxSize =
 10 * 1024 * 1024;
 
-/* ==========================
-   LOOP THROUGH FILES
-========================== */
+// =====================================
+// UPLOAD FILES
+// =====================================
 
-for(let i = 0; i < files.length; i++){
+for(let i = 0; i < selectedFiles.length; i++){
 
 const file =
-files[i];
+selectedFiles[i];
 
 if(file.size > maxSize){
 
@@ -87,7 +149,7 @@ status.innerText =
 "Uploading " +
 (i + 1) +
 " of " +
-files.length;
+selectedFiles.length;
 
 const reader =
 new FileReader();
@@ -132,8 +194,6 @@ reader.result.split(",")[1]
 
 };
 
-console.log(payload);
-
 await fetch(
 SCRIPT_URL,
 {
@@ -161,6 +221,10 @@ reader.readAsDataURL(file);
 
 }
 
+// =====================================
+// SUCCESS
+// =====================================
+
 status.innerText =
 "Submission completed successfully.";
 
@@ -169,5 +233,9 @@ alert(
 );
 
 form.reset();
+
+selectedFiles = [];
+
+updateFileList();
 
 });
