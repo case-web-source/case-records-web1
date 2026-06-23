@@ -141,7 +141,7 @@ body{
 
 .logo-section p{
 
-    opacity:.75;
+    opacity:.100;
 
 }
 
@@ -250,9 +250,9 @@ body::after{
 
     position:fixed;
 
-    right:3%;
+    right:5%;
 
-    top:70%;
+    top:60%;
 
     transform:translateY(-50%);
 
