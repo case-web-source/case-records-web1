@@ -5,34 +5,31 @@
 
     <meta charset="UTF-8">
 
-    <!-- Makes website mobile-friendly -->
+    <!-- Mobile Responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Faculty Document Portal</title>
 
-    <!-- CSS File -->
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
 
-    <!--
-        Background overlay.
-        Helps darken/lighten image if needed.
-    -->
+    <!-- Background Overlay -->
     <div class="overlay"></div>
 
-    <!-- Main Form Container -->
+    <!-- Main Container -->
     <div class="container">
 
-        <!-- =====================
-             LOGO SECTION
-        ====================== -->
+        <!-- ==========================
+             HEADER SECTION
+        =========================== -->
 
         <div class="logo-section">
 
-            <!-- Replace later -->
+            <!-- Add logo later if needed -->
 
             <h1>Faculty Document Portal</h1>
 
@@ -42,9 +39,9 @@
 
         </div>
 
-        <!-- =====================
+        <!-- ==========================
              FORM START
-        ====================== -->
+        =========================== -->
 
         <form id="uploadForm">
 
@@ -80,29 +77,17 @@
                         Select Semester
                     </option>
 
-                    <option>
-                        1st Semester AY 2026-2027
-                    </option>
+                    <option>1st Semester AY 2026-2027</option>
+                    <option>2nd Semester AY 2026-2027</option>
+                    <option>Midyear AY 2026-2027</option>
 
-                    <option>
-                        2nd Semester AY 2027-2028
-                    </option>
+                    <option>1st Semester AY 2027-2028</option>
+                    <option>2nd Semester AY 2027-2028</option>
+                    <option>Midyear AY 2027-2028</option>
 
-                    <option>
-                        Midyear AY 2027-2028
-                    </option>
-
-                    <option>
-                        1st Semester AY 2027-2028
-                    </option>
-
-                    <option>
-                        2nd Semester AY 2028-2029
-                    </option>
-
-                    <option>
-                        Midyear AY 2028-2029
-                    </option>
+                    <option>1st Semester AY 2028-2029</option>
+                    <option>2nd Semester AY 2028-2029</option>
+                    <option>Midyear AY 2028-2029</option>
 
                 </select>
 
@@ -154,55 +139,62 @@
                         Select Document Type
                     </option>
 
-                    <option>
-                        Midterm Grade
-                    </option>
-
-                    <option>
-                        Final Grade
-                    </option>
-
-                    <option>
-                        Online Attendance
-                    </option>
-
-                    <option>
-                        Online Picture (PDF)
-                    </option>
+                    <option>Midterm Grade</option>
+                    <option>Final Grade</option>
+                    <option>Online Attendance</option>
+                    <option>Online Picture (PDF)</option>
 
                 </select>
 
             </div>
 
-            <!-- File Upload -->
+            <!-- ==========================
+                 FILE UPLOAD
+            =========================== -->
 
             <div class="input-group">
 
                 <label>
-                    Upload File
+                    Add File
                 </label>
 
                 <small>
-                    Allowed:
                     PDF, XLSX, XLS, DOCX
-                    (Max 10MB)
+                    (Maximum 10MB per file)
                 </small>
 
-<input
-    type="file"
-    id="file"
-    multiple
-    accept=".pdf,.xlsx,.xls,.doc,.docx"
-    required>
+                <!-- Add files one by one -->
+
+                <input
+                    type="file"
+                    id="file"
+                    accept=".pdf,.xlsx,.xls,.doc,.docx">
 
             </div>
 
-            <!-- Submit Button -->
+            <!-- ==========================
+                 FILE QUEUE
+            =========================== -->
 
-            <button
-                type="submit">
+            <div class="input-group">
 
-                Submit Document
+                <label>
+                    Files Ready For Submission
+                </label>
+
+                <div id="fileList">
+
+                    No files selected.
+
+                </div>
+
+            </div>
+
+            <!-- Submit -->
+
+            <button type="submit">
+
+                Submit Documents
 
             </button>
 
