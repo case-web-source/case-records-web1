@@ -10,7 +10,6 @@
 
     <title>Faculty Document Portal</title>
 
-    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 
 </head>
@@ -23,13 +22,11 @@
     <!-- Main Container -->
     <div class="container">
 
-        <!-- ==========================
-             HEADER SECTION
-        =========================== -->
+        <!-- Header -->
 
         <div class="logo-section">
 
-            <!-- Add logo later if needed -->
+            <!-- Add logo later -->
 
             <h1>Faculty Document Portal</h1>
 
@@ -39,9 +36,7 @@
 
         </div>
 
-        <!-- ==========================
-             FORM START
-        =========================== -->
+        <!-- Form -->
 
         <form id="uploadForm">
 
@@ -56,7 +51,7 @@
                 <input
                     type="text"
                     id="facultyName"
-                    placeholder="Family Name, Given Name M.I."
+                    placeholder="Family Name, Given Name, M.I."
                     required>
 
             </div>
@@ -148,57 +143,38 @@
 
             </div>
 
-            <!-- ==========================
-         <!-- FILE DROP ZONE -->
+            <!-- Drag & Drop Upload -->
 
-<div class="input-group">
+            <div class="input-group">
 
-    <label>
-        Upload Documents
-    </label>
+                <label>
+                    Upload Documents
+                </label>
 
-    <small>
-        Drag and drop files here or click the box.
-        PDF, XLSX, XLS, DOCX
-        (Maximum 10MB per file)
-    </small>
+                <small>
+                    Drag files here or click the box.
+                    PDF, XLSX, XLS, DOCX
+                    (Maximum 10MB per file)
+                </small>
 
-    <div id="dropZone">
+                <div id="dropZone">
 
-        <p>📁 Drag Files Here</p>
+                    <p>📁 Drag Files Here</p>
 
-        <p>or Click to Select Files</p>
+                    <p>or Click to Select Files</p>
 
-        <input
-            type="file"
-            id="fileInput"
-            multiple
-            accept=".pdf,.xlsx,.xls,.doc,.docx"
-            hidden>
+                    <input
+                        type="file"
+                        id="fileInput"
+                        multiple
+                        accept=".pdf,.xlsx,.xls,.doc,.docx"
+                        hidden>
 
-    </div>
+                </div>
 
-</div>
+            </div>
 
-<!-- FILE LIST -->
-
-<div class="input-group">
-
-    <label>
-        Files Ready For Submission
-    </label>
-
-    <div id="fileList">
-
-        No files selected.
-
-    </div>
-
-</div>
-
-            <!-- ==========================
-                 FILE QUEUE
-            =========================== -->
+            <!-- File Queue -->
 
             <div class="input-group">
 
@@ -216,13 +192,14 @@
 
             <!-- Submit -->
 
-            <button type="submit">
+            <button
+                type="submit">
 
                 Submit Documents
 
             </button>
 
-            <!-- Upload Status -->
+            <!-- Status -->
 
             <p id="status"></p>
 
@@ -230,7 +207,6 @@
 
     </div>
 
-    <!-- JavaScript -->
     <script src="script.js"></script>
 
 </body>
