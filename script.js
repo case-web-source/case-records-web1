@@ -253,6 +253,11 @@ document.getElementById(
 "documentType"
 ).value,
 
+departmentCode:
+document.getElementById(
+"departmentCode"
+).value,
+
 fileName:
 file.name,
 
