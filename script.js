@@ -1,17 +1,8 @@
-const form =
-document.getElementById("uploadForm");
-
-const dropZone =
-document.getElementById("dropZone");
-
-const fileInput =
-document.getElementById("fileInput");
-
-const fileList =
-document.getElementById("fileList");
-
-const status =
-document.getElementById("status");
+const form = document.getElementById("uploadForm");
+const dropZone = document.getElementById("dropZone");
+const fileInput = document.getElementById("fileInput");
+const fileList = document.getElementById("fileList");
+const status = document.getElementById("status");
 
 const SCRIPT_URL =
 "https://script.google.com/macros/s/AKfycbwlOWDNrACeFRBYJTalGx6uhwHd2_Zxf-2Vzm9jFxbWEc3QhKU8_zXHSWeVlIQyZcdZ7Q/exec";
@@ -22,72 +13,41 @@ let selectedFiles = [];
    OPEN FILE PICKER
 ========================== */
 
-dropZone.addEventListener(
-"click",
-function(){
-
-fileInput.click();
-
-}
-);
+dropZone.addEventListener("click", () => {
+    fileInput.click();
+});
 
 /* ==========================
    FILE PICKER
 ========================== */
 
-fileInput.addEventListener(
-"change",
-function(){
-
-addFiles(fileInput.files);
-
-}
-);
+fileInput.addEventListener("change", () => {
+    addFiles(fileInput.files);
+    fileInput.value = "";
+});
 
 /* ==========================
    DRAG EVENTS
 ========================== */
 
-dropZone.addEventListener(
-"dragover",
-function(e){
+dropZone.addEventListener("dragover", e => {
+    e.preventDefault();
+    dropZone.classList.add("dragover");
+});
 
-e.preventDefault();
+dropZone.addEventListener("dragleave", () => {
+    dropZone.classList.remove("dragover");
+});
 
-dropZone.classList.add(
-"dragover"
-);
+dropZone.addEventListener("drop", e => {
 
-}
-);
+    e.preventDefault();
 
-dropZone.addEventListener(
-"dragleave",
-function(){
+    dropZone.classList.remove("dragover");
 
-dropZone.classList.remove(
-"dragover"
-);
+    addFiles(e.dataTransfer.files);
 
-}
-);
-
-dropZone.addEventListener(
-"drop",
-function(e){
-
-e.preventDefault();
-
-dropZone.classList.remove(
-"dragover"
-);
-
-addFiles(
-e.dataTransfer.files
-);
-
-}
-);
+});
 
 /* ==========================
    ADD FILES
@@ -95,247 +55,201 @@ e.dataTransfer.files
 
 function addFiles(files){
 
-for(const file of files){
+    for(const file of files){
 
-selectedFiles.push(file);
+        const exists = selectedFiles.some(f =>
+            f.name === file.name &&
+            f.size === file.size
+        );
 
-}
+        if(!exists){
 
-renderFiles();
+            selectedFiles.push(file);
+
+        }
+
+    }
+
+    renderFiles();
 
 }
 
 /* ==========================
-   RENDER FILES
+   FILE LIST
 ========================== */
 
 function renderFiles(){
 
-if(selectedFiles.length === 0){
+    if(selectedFiles.length === 0){
 
-fileList.innerHTML =
-"No files selected.";
+        fileList.innerHTML = "No files selected.";
 
-return;
+        return;
 
-}
+    }
 
-fileList.innerHTML = "";
+    fileList.innerHTML = "";
 
-selectedFiles.forEach(
-(file,index)=>{
+    selectedFiles.forEach((file,index)=>{
 
-const row =
-document.createElement("div");
+        const row = document.createElement("div");
 
-row.className =
-"file-item";
+        row.className = "file-item";
 
-row.innerHTML =
-`
-<span>${file.name}</span>
+        row.innerHTML = `
+            <span>${file.name}</span>
 
-<button
-type="button"
-class="remove-btn"
-onclick="removeFile(${index})">
+            <button
+                type="button"
+                class="remove-btn"
+                onclick="removeFile(${index})">
+                Remove
+            </button>
+        `;
 
-Remove
+        fileList.appendChild(row);
 
-</button>
-`;
-
-fileList.appendChild(row);
+    });
 
 }
-);
-
-}
-
-/* ==========================
-   REMOVE FILE
-========================== */
 
 function removeFile(index){
 
-selectedFiles.splice(
-index,
-1
-);
+    selectedFiles.splice(index,1);
 
-renderFiles();
+    renderFiles();
 
 }
 
-window.removeFile =
-removeFile;
+window.removeFile = removeFile;
 
 /* ==========================
    SUBMIT
 ========================== */
 
-form.addEventListener(
-"submit",
-async function(event){
+form.addEventListener("submit", async function(event){
 
-event.preventDefault();
+    event.preventDefault();
 
-if(selectedFiles.length === 0){
+    if(selectedFiles.length === 0){
 
-alert(
-"Please add files first."
-);
+        alert("Please add files first.");
 
-return;
+        return;
 
-}
+    }
 
-if(!confirm(
-"Submit all files?"
-)){
+    if(!confirm("Submit all selected documents?")){
 
-return;
+        return;
 
-}
+    }
 
-const maxSize =
-10 * 1024 * 1024;
+    const maxSize = 10 * 1024 * 1024;
 
-for(let i = 0; i < selectedFiles.length; i++){
+    for(let i=0;i<selectedFiles.length;i++){
 
-const file =
-selectedFiles[i];
+        const file = selectedFiles[i];
 
-if(file.size > maxSize){
+        if(file.size > maxSize){
 
-alert(
-file.name +
-" exceeds 10MB."
-);
+            alert(file.name + " exceeds 10MB.");
 
-continue;
+            continue;
 
-}
+        }
 
-status.innerText =
-"Uploading " +
-(i+1) +
-" of " +
-selectedFiles.length;
+        status.innerText =
+        `Uploading ${i+1} of ${selectedFiles.length}...`;
 
-const reader =
-new FileReader();
+        const payload = await new Promise(resolve=>{
 
-await new Promise(resolve=>{
+            const reader = new FileReader();
 
-reader.onload =
-async function(){
+            reader.onload = ()=>{
 
-const payload = {
+                resolve({
 
-facultyName:
-document.getElementById(
-"facultyName"
-).value,
+                    facultyName:
+                    document.getElementById("facultyName").value,
 
-semester:
-document.getElementById(
-"semester"
-).value,
+                    semester:
+                    document.getElementById("semester").value,
 
-department:
-document.getElementById(
-"department"
-).value,
+                    department:
+                    document.getElementById("department").value,
 
-documentType:
-document.getElementById(
-"documentType"
-).value,
+                    departmentCode:
+                    document.getElementById("departmentCode").value,
 
-departmentCode:
-document.getElementById(
-"departmentCode"
-).value,
+                    documentType:
+                    document.getElementById("documentType").value,
 
-fileName:
-file.name,
+                    fileName:file.name,
 
-mimeType:
-file.type,
+                    mimeType:file.type,
 
-fileData:
-reader.result.split(",")[1]
+                    fileData:
+                    reader.result.split(",")[1]
 
-};
+                });
 
-try{
+            };
 
-const response =
-await fetch(
-SCRIPT_URL,
-{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:
-JSON.stringify(payload)
-}
-);
+            reader.readAsDataURL(file);
 
-const result =
-await response.json();
+        });
 
-if(!result.success){
+        try{
 
-alert(result.error);
+            const response = await fetch(SCRIPT_URL,{
 
-status.innerText =
-"Upload rejected.";
+                method:"POST",
 
-resolve();
+                headers:{
+                    "Content-Type":"application/json"
+                },
 
-return;
+                body:JSON.stringify(payload)
 
-}
+            });
 
-}
-catch(error){
+            const result = await response.json();
 
-console.error(error);
+            if(!result.success){
 
-alert(
-"Upload failed.\n\n" +
-error.message
-);
+                alert(result.error);
 
-status.innerText =
-"Upload failed.";
+                status.innerText = "Upload rejected.";
 
-}
+                return;
 
-resolve();
+            }
 
-};
+        }
 
-reader.readAsDataURL(file);
+        catch(error){
 
-});
+            console.error(error);
 
-}
+            alert("Upload failed.");
 
-status.innerText =
-"Submission completed.";
+            status.innerText = "Upload failed.";
 
-alert(
-"Documents submitted successfully."
-);
+            return;
 
-selectedFiles = [];
+        }
 
-renderFiles();
+    }
 
-form.reset();
+    status.innerText = "All documents uploaded successfully.";
+
+    alert("Documents uploaded successfully.");
+
+    selectedFiles = [];
+
+    renderFiles();
+
+    form.reset();
 
 });
