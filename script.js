@@ -271,20 +271,47 @@ reader.result.split(",")[1]
 
 try{
 
+const response =
 await fetch(
 SCRIPT_URL,
 {
 method:"POST",
-mode:"no-cors",
+headers:{
+"Content-Type":"application/json"
+},
 body:
 JSON.stringify(payload)
 }
 );
 
+const result =
+await response.json();
+
+if(!result.success){
+
+alert(result.error);
+
+status.innerText =
+"Upload rejected.";
+
+resolve();
+
+return;
+
+}
+
 }
 catch(error){
 
-console.log(error);
+console.error(error);
+
+alert(
+"Upload failed.\n\n" +
+error.message
+);
+
+status.innerText =
+"Upload failed.";
 
 }
 
