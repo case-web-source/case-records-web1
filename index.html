@@ -1,215 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <!-- Mobile Responsive -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Faculty Document Portal</title>
-
-    <link rel="stylesheet" href="style.css">
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faculty Document Portal</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- Background Overlay -->
-    <div class="overlay"></div>
-
-    <!-- Main Container -->
-    <div class="container">
-
-        <!-- Header -->
-
-        <div class="logo-section">
-
-            <!-- Add logo later -->
-
-            <h1>Faculty Document Portal</h1>
-
-            <p>
-                Academic Submission System
-            </p>
-
-        </div>
-
-        <!-- Form -->
-
-        <form id="uploadForm">
-
-            <!-- Faculty Name -->
-
-            <div class="input-group">
-
-                <label>
-                    Faculty Name
-                </label>
-
-                <input
-                    type="text"
-                    id="facultyName"
-                    placeholder="Family Name, Given Name M.I."
-                    required>
-
-            </div>
-
-            <!-- Semester -->
-
-            <div class="input-group">
-
-                <label>
-                    Semester
-                </label>
-
-                <select
-                    id="semester"
-                    required>
-
-                    <option value="">
-                        Select Semester
-                    </option>
-
-                    <option>1st Semester AY 2026-2027</option>
-                    <option>2nd Semester AY 2026-2027</option>
-                    <option>Midyear AY 2026-2027</option>
-
-                    <option>1st Semester AY 2027-2028</option>
-                    <option>2nd Semester AY 2027-2028</option>
-                    <option>Midyear AY 2027-2028</option>
-
-                    <option>1st Semester AY 2028-2029</option>
-                    <option>2nd Semester AY 2028-2029</option>
-                    <option>Midyear AY 2028-2029</option>
-
-                </select>
-
-            </div>
-
-            <!-- Department -->
-
-            <div class="input-group">
-
-                <label>
-                    Department / Program
-                </label>
-
-                <select
-                    id="department"
-                    required>
-
-                    <option value="">
-                        Select Department
-                    </option>
-
-                    <option>MAPS</option>
-                    <option>Psychology</option>
-                    <option>Media and Communication</option>
-                    <option>Christian Education</option>
-                    <option>Human Kinetics</option>
-                    <option>Languages</option>
-                    <option>Education</option>
-                    <option>Theology</option>
-                    <option>General Education</option>
-
-                </select>
-
-            </div>
-
-
-            <!-- Document Type -->
-
-            <div class="input-group">
-
-                <label>
-                    Document Type
-                </label>
-
-                <select
-                    id="documentType"
-                    required>
-
-                    <option value="">
-                        Select Document Type
-                    </option>
-
-                    <option>Midterm Grade</option>
-                    <option>Final Grade</option>
-                    <option>Online Attendance</option>
-                    <option>Online Picture (PDF)</option>
-
-                </select>
-
-            </div>
-
-            <!-- Drag & Drop Upload -->
-
-            <div class="input-group">
-
-                <label>
-                    Upload Documents
-                </label>
-
-                <small>
-                    Drag files here or click the box.
-                    PDF, XLSX, XLS, DOCX
-                    (Maximum 10MB per file)
-                </small>
-
-                <div id="dropZone">
-
-                    <p>📁 Drag Files Here</p>
-
-                    <p>or Click to Select Files</p>
-
-                    <input
-                        type="file"
-                        id="fileInput"
-                        multiple
-                        accept=".pdf,.xlsx,.xls,.doc,.docx"
-                        hidden>
-
-                </div>
-
-            </div>
-
-            <!-- File Queue -->
-
-            <div class="input-group">
-
-                <label>
-                    Files Ready For Submission
-                </label>
-
-                <div id="fileList">
-
-                    No files selected.
-
-                </div>
-
-            </div>
-
-            <!-- Submit -->
-
-            <button
-                type="submit">
-
-                Submit Documents
-
-            </button>
-
-            <!-- Status -->
-
-            <p id="status"></p>
-
-        </form>
-
-    </div>
-
-    <script src="script.js"></script>
+<div class="overlay"></div>
+
+<div class="container">
+
+<div class="logo-section">
+<h1>Faculty Document Portal</h1>
+<p>Academic Submission System</p>
+</div>
+
+<form id="uploadForm">
+
+<div class="input-group">
+<label>Faculty Name</label>
+<input type="text" id="facultyName" placeholder="Family Name, Given Name M.I." required>
+</div>
+
+<div class="input-group">
+<label>Semester</label>
+<select id="semester" required>
+<option value="">Select Semester</option>
+<option>1st Semester AY 2026-2027</option>
+<option>2nd Semester AY 2026-2027</option>
+<option>Midyear AY 2026-2027</option>
+<option>1st Semester AY 2027-2028</option>
+<option>2nd Semester AY 2027-2028</option>
+<option>Midyear AY 2027-2028</option>
+<option>1st Semester AY 2028-2029</option>
+<option>2nd Semester AY 2028-2029</option>
+<option>Midyear AY 2028-2029</option>
+</select>
+</div>
+
+<div class="input-group">
+<label>Department / Program</label>
+<select id="department" required>
+<option value="">Select Department</option>
+<option>MAPS</option>
+<option>Psychology</option>
+<option>Media and Communication</option>
+<option>Christian Education</option>
+<option>Human Kinetics</option>
+<option>Languages</option>
+<option>Education</option>
+<option>Theology</option>
+<option>General Education</option>
+</select>
+</div>
+
+<div class="input-group">
+<label>Document Type</label>
+<select id="documentType" required>
+<option value="">Select Document Type</option>
+<option>Midterm Grade</option>
+<option>Final Grade</option>
+<option>Online Attendance</option>
+<option>Online Picture (PDF)</option>
+</select>
+</div>
+
+<div class="input-group">
+<label>Upload Documents</label>
+<small>Drag files here or click the box. PDF, XLSX, XLS, DOCX (Maximum 10MB per file)</small>
+
+<div id="dropZone">
+<p>📁 Drag Files Here</p>
+<p>or Click to Select Files</p>
+<input
+type="file"
+id="fileInput"
+multiple
+accept=".pdf,.xlsx,.xls,.doc,.docx"
+hidden>
+</div>
+
+</div>
+
+<div class="input-group">
+<label>Files Ready For Submission</label>
+<div id="fileList">No files selected.</div>
+</div>
+
+<button type="submit">
+Submit Documents
+</button>
+
+<p id="status"></p>
+
+</form>
+
+</div>
+
+<script src="script.js"></script>
 
 </body>
-
 </html>
