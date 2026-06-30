@@ -179,9 +179,6 @@ form.addEventListener("submit", async function(event){
                     department:
                     document.getElementById("department").value,
 
-                    departmentCode:
-                    document.getElementById("departmentCode").value,
-
                     documentType:
                     document.getElementById("documentType").value,
 
