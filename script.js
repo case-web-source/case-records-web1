@@ -9,26 +9,14 @@ const SCRIPT_URL =
 
 let selectedFiles = [];
 
-/* ==========================
-   OPEN FILE PICKER
-========================== */
-
 dropZone.addEventListener("click", () => {
     fileInput.click();
 });
-
-/* ==========================
-   FILE PICKER
-========================== */
 
 fileInput.addEventListener("change", () => {
     addFiles(fileInput.files);
     fileInput.value = "";
 });
-
-/* ==========================
-   DRAG EVENTS
-========================== */
 
 dropZone.addEventListener("dragover", e => {
     e.preventDefault();
@@ -40,18 +28,10 @@ dropZone.addEventListener("dragleave", () => {
 });
 
 dropZone.addEventListener("drop", e => {
-
     e.preventDefault();
-
     dropZone.classList.remove("dragover");
-
     addFiles(e.dataTransfer.files);
-
 });
-
-/* ==========================
-   ADD FILES
-========================== */
 
 function addFiles(files){
 
@@ -63,9 +43,7 @@ function addFiles(files){
         );
 
         if(!exists){
-
             selectedFiles.push(file);
-
         }
 
     }
@@ -74,16 +52,11 @@ function addFiles(files){
 
 }
 
-/* ==========================
-   FILE LIST
-========================== */
-
 function renderFiles(){
 
     if(selectedFiles.length === 0){
 
         fileList.innerHTML = "No files selected.";
-
         return;
 
     }
@@ -116,16 +89,11 @@ function renderFiles(){
 function removeFile(index){
 
     selectedFiles.splice(index,1);
-
     renderFiles();
 
 }
 
 window.removeFile = removeFile;
-
-/* ==========================
-   SUBMIT
-========================== */
 
 form.addEventListener("submit", async function(event){
 
@@ -134,33 +102,28 @@ form.addEventListener("submit", async function(event){
     if(selectedFiles.length === 0){
 
         alert("Please add files first.");
-
         return;
 
     }
 
     if(!confirm("Submit all selected documents?")){
-
         return;
-
     }
 
     const maxSize = 10 * 1024 * 1024;
 
-    for(let i=0;i<selectedFiles.length;i++){
+    for(let i = 0; i < selectedFiles.length; i++){
 
         const file = selectedFiles[i];
 
         if(file.size > maxSize){
 
             alert(file.name + " exceeds 10MB.");
-
             continue;
 
         }
 
-        status.innerText =
-        `Uploading ${i+1} of ${selectedFiles.length}...`;
+        status.innerText = `Uploading ${i+1} of ${selectedFiles.length}...`;
 
         const payload = await new Promise(resolve=>{
 
@@ -170,24 +133,14 @@ form.addEventListener("submit", async function(event){
 
                 resolve({
 
-                    facultyName:
-                    document.getElementById("facultyName").value,
+                    facultyName: document.getElementById("facultyName").value,
+                    semester: document.getElementById("semester").value,
+                    department: document.getElementById("department").value,
+                    documentType: document.getElementById("documentType").value,
 
-                    semester:
-                    document.getElementById("semester").value,
-
-                    department:
-                    document.getElementById("department").value,
-
-                    documentType:
-                    document.getElementById("documentType").value,
-
-                    fileName:file.name,
-
-                    mimeType:file.type,
-
-                    fileData:
-                    reader.result.split(",")[1]
+                    fileName: file.name,
+                    mimeType: file.type,
+                    fileData: reader.result.split(",")[1]
 
                 });
 
@@ -200,15 +153,8 @@ form.addEventListener("submit", async function(event){
         try{
 
             const response = await fetch(SCRIPT_URL,{
-
                 method:"POST",
-
-                headers:{
-                    "Content-Type":"application/json"
-                },
-
-                body:JSON.stringify(payload)
-
+                body: JSON.stringify(payload)
             });
 
             const result = await response.json();
@@ -216,20 +162,16 @@ form.addEventListener("submit", async function(event){
             if(!result.success){
 
                 alert(result.error);
-
                 status.innerText = "Upload rejected.";
-
                 return;
 
             }
 
-        }
-
-        catch(error){
+        }catch(error){
 
             console.error(error);
 
-            alert("Upload failed.");
+            alert(error.message);
 
             status.innerText = "Upload failed.";
 
